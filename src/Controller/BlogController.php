@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Routing\Annotation\Route;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Mime\Part\DataPart;
@@ -129,13 +130,16 @@ class BlogController extends AbstractController
 
             $manager->flush();
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
                 ->from('hello@example.com')
                 ->to('you@example.com')
-                ->subject('Ajout d\'un nouvel article confirmé');
+                ->subject('Ajout d\'un nouvel article confirmé')
+                ->htmlTemplate('blog/mail.html.twig')
+                ->context([
+                    'title' =>$article->getTitle(),
+                    'category' => $article->getCategory(),
+                ]);
 
-//                ->html('<p>See Twig integration for better HTML integration!</p>');
-//                ->addPart(new DataPart(new File('/images/products/' . $article->getImage())));
 
             $mailer->send($email);
 
