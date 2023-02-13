@@ -1,0 +1,12 @@
+easy_admin:
+  entities:
+    Product:
+      # ...
+      form:
+        fields:
+          - { property: 'imageFile', type: 'vich_image' }
+      # ...
+      design:
+        form_theme:
+          - '@EasyAdmin/form/bootstrap_4.html.twig'
+          - '@VichUploader/Form/fields.html.twig'

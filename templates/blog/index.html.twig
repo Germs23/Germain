@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block stylesheet %}
+        {{ parent() }}
+        <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css"/>
+    {% endblock %}
+
+    <div class="p-3">
+        <input class="btn btn-primary" type="button" value="Change view" onclick="hide_dataTable('articles-table','articles-card');">
+        <a  href="{{ path('table_articles') }}" class="btn btn-primary">Json</a>
+    </div>
+
+    <div id="articles-table" style="display: none">
+        <table id="tableArticle" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+    <div id="articles-card">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for article in articles %}
+            <div class="col">
+                <div class="card h-100">
+                    <br>
+                    <img src="
+                    {% if article.image != null %}
+                            {% if article.image == 'http://placehold.it/350x150' %}
+                                {{ article.image }}
+                            {% else %}
+                                {{ vich_uploader_asset(article, 'imageFile') }}
+                            {% endif %}
+                    {% else %}
+                           {{ img_default }}
+                    {% endif %}
+                            " class="card-img-top h-25" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.content | raw }}</p>
+                        <p class="card-text"><small class="text-muted">{{ "Category" | trans }}  : {{ article.category.title }}, {{ "Published" | trans }}  {{ article.createdAt | date('d/m/y H:i')}} </small></p>
+                        <a href="{{ path('blog_show', {'id': article.id}) }}" class="btn btn-primary">{{ "Read more" | trans }}</a>
+                        <a href="{{ path('blog_edit', {'id': article.id}) }}" class="btn btn-primary">{{ "Update" | trans }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(articles) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src={{ asset('js/data.js') }}></script>
+{% endblock %}

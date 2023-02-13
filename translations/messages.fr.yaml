@@ -1,0 +1,39 @@
+Articles: Articles
+Create an article: Créer un article
+Login: Connexion
+Logout: Déconnexion
+Register: S'inscrire
+Registration: Inscription
+Home page: Page d'accueil
+Read more: Lire plus
+Update: Modifier
+Update an article: Modifier un article
+Category: Catégorie
+Published: Publié le
+Title: Titre
+Content: Contenu
+Image: Image
+Welcome: Bienvenue
+Add:
+  article: Ajouter l'article
+  comment: Ajouter le commentaire
+  image: Ajouter une image
+Save:
+  update: Sauvegarder les modifications
+Password: Mot de passe
+Email:
+  address: Adresse Email
+Comment: Commenter
+Commentary: Commentaires
+Registration on the website: Inscription au site
+You cannot comment if you are not logged in: Vous ne pouvez pas commenter sans être connecté
+You do not have access to this feature as a User: Vous n'avez pas accès à cette fonctionnalité en tant qu'utilisateur
+Name: Nom
+Confirm password: Confirmation du mot de pase
+User:
+  name: Nom d'utilisateur
+  email: Email de l'utilisateur
+  password: Mot de passe de l'utilisateur
+  confirm:
+    password: Confirmation du mot de passe de l'utilisateur
+

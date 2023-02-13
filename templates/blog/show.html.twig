@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article class="text-center">
+        <h2 > {{ article.title }}</h2>
+        <div class="metadata">
+            {{ "Category" | trans }}  : {{ article.category.title }}, {{ "Published" | trans }}  {{ article.createdAt | date('d/m/y H:i')}}
+        </div>
+        <br>
+        <div class="content text-center">
+            <img class="img-thumbnail w-50 align-content-center" src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="">
+            <p>
+                {{ article.content | raw }}
+            </p>
+        </div>
+        <div>
+            <a href="{{ path('blog_edit', {'id': article.id}) }}" class="btn btn-primary">{{ "Update" | trans }}</a>
+        </div>
+    </article>
+
+    <section class="text-center" id="commentaires">
+        <h1 class="">{{ article.comments | length }} {{ "Commentary" | trans }}</h1>
+        {% for comment in article.comments %}
+            <div class="comment">
+                <div class="row">
+                    <div class="col-3">
+                        {{ comment.author }} (<small>{{ comment.createdAt | date('d/m/y H:i') }}</small>)
+                    </div>
+                    <div class="col">
+                        {{ comment.content | raw }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if app.user %}
+        <br>
+            {{ form_start(commentForm) }}
+            {{ form_widget(commentForm) }}
+            <button type="submit" class="btn btn-success">{{ "Comment" | trans }}</button>
+            {{ form_end(commentForm) }}
+        {% else %}
+        <br>
+        <h2>{{ "You cannot comment if you are not logged in" | trans }}</h2>
+            <a href="{{ path('security_login') }}" class="btn btn-primary">{{ "Login" | trans }}</a>
+        {% endif %}
+    </section>
+
+{% endblock %}
